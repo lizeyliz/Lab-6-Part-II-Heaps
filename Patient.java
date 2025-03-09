@@ -4,8 +4,23 @@ class Patient {
     private String firstName;
     private String lastName;
     private int age;
-    private LocalDateTime admitTime;//String?
+    private LocalDateTime admitTime;
     private int triage; //triage level: shows urgency of patient (between 1-5)
+
+    /*Level 1 (resuscitation): requires immediate, life-saving intervention and includes patients with 
+    cardiopulmonary arrest, major trauma, severe  respiratory distress, and seizures. 
+
+    Level 2 (emergent): requires an immediate nursing assessment and rapid treatment and includes patients who
+    are in a high-risk situation, are  confused, lethargic, or disoriented, or have severe pain or distress, 
+    including  patients with stroke, head injuries, asthma, and sexual-assault injuries.  
+
+    Level 3 (urgent): includes patients who need quick attention but can wait as long as 30 minutes for 
+    assessment and treatment and includes patients with signs of infection, mild respiratory distress, 
+    or moderate pain.  
+
+    Level 4: less urgent
+
+    Level 5: non urgent*/
 
     //constructor
     public Patient(String firstName, String lastName, int age, LocalDateTime admitTime, int triage) {
