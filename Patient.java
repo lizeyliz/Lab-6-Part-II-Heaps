@@ -1,13 +1,14 @@
 //object class; creates a patient object
+import java.time.LocalDateTime;
 class Patient {
     private String firstName;
     private String lastName;
     private int age;
-    private int admitTime;//String?
+    private LocalDateTime admitTime;//String?
     private int triage; //triage level: shows urgency of patient (between 1-5)
 
     //constructor
-    public Patient(String firstName, String lastName, int age, int admitTime, int triage) {
+    public Patient(String firstName, String lastName, int age, LocalDateTime admitTime, int triage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -28,7 +29,7 @@ class Patient {
         return age;
     }//end getAge
 
-    public int getAdmitTime() {
+    public LocalDateTime getAdmitTime() {
         return admitTime;
     }//end getAdmitTime
 
@@ -49,7 +50,7 @@ class Patient {
         this.age = age;
     }//end setAge
 
-    public void setAdmitTime(int admitTime) {
+    public void setAdmitTime(LocalDateTime admitTime) {
         this.admitTime = admitTime;
     }//end setAdmitTime
 
@@ -63,6 +64,4 @@ class Patient {
         return "Name: " + firstName + " " + lastName +
          "\nAge: " + age +  "\nAdmit Time: " + admitTime + "\nTriage Level: " + triage;
     }//end toString
-
-    
 }//end class patient
