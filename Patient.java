@@ -1,66 +1,67 @@
 //object class; creates a patient object
 class Patient {
-    private String name;
+    private String firstName;
+    private String lastName;
     private int age;
-    private boolean inCritCondition;
-    private int admitTime;
-    private int priorityLevel;
+    private int admitTime;//String?
+    private int triage; //triage level: shows urgency of patient (between 1-5)
 
     //constructor
-    public Patient(String name, int age, boolean inCritCondition, int admitTime, int priorityLevel) {
-        this.name = name;
+    public Patient(String firstName, String lastName, int age, int admitTime, int triage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
-        this.inCritCondition = inCritCondition;
         this.admitTime = admitTime;
-        this.priorityLevel = priorityLevel;
+        this.triage = triage;
     }//end constructor
 
     //getters
+    public String getFirstName() {
+        return firstName;
+    }//end getName
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }//end getName
 
     public int getAge() {
         return age;
     }//end getAge
 
-    public boolean getInCritCondition() {
-        return inCritCondition;
-    }//end getInCritCondition
-
     public int getAdmitTime() {
         return admitTime;
     }//end getAdmitTime
 
-    public int getPriorityLevel() {
-        return priorityLevel;
-    }//end getPriorityLevel
+    public int getTriage() {
+        return triage;
+    }//end getTriage
 
     //setters
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }//end setName
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }//end setName
 
     public void setAge(int age) {
         this.age = age;
     }//end setAge
 
-    public void setInCritCondition(boolean inCritCondition) {
-        this.inCritCondition = inCritCondition;
-    }//end setInCritCondition
-
     public void setAdmitTime(int admitTime) {
         this.admitTime = admitTime;
     }//end setAdmitTime
 
-    public void setPriorityLevel(int priorityLevel) {
-        this.priorityLevel = priorityLevel;
-    }//end setPriorityLevel
+    public void setTriage(int triage) {
+        this.triage = triage;
+    }//end setTriage
 
-    //toString
+    //toString: need to update
+    @Override
     public String toString() {
-        return "Name: " + name + "\nAge: " + age + "\nCritical Condition: " + inCritCondition + "\nAdmit Time: " + admitTime + "\nPriority Level: " + priorityLevel;
+        return "Name: " + firstName + " " + lastName +
+         "\nAge: " + age +  "\nAdmit Time: " + admitTime + "\nTriage Level: " + triage;
     }//end toString
 
     
