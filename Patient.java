@@ -16,7 +16,7 @@ class Patient {
 
     Level 3 (urgent): includes patients who need quick attention but can wait as long as 30 minutes for 
     assessment and treatment and includes patients with signs of infection, mild respiratory distress, 
-    or moderate pain.  
+    or moderate pain.
 
     Level 4: less urgent
 
