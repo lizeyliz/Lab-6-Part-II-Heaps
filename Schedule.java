@@ -13,10 +13,42 @@ public class Schedule {
 
     //add a new patient to patients heap
     public void insert(Patient patient){
-        patients.add(patient);
+        patients.add(patient);//add to patients array 
         int currentIndex = patients.size() - 1;
         //heapifyUp(currentIndex);
     }//end insert
+
+    //check node is placed correctly for a min heap by moving upwards
+    public void heapifyUp(){
+        int index = patients.size() - 1; //start at last element in
+        while (index > 0) { //loop until you get to first element
+            Patient current = patients.get(index); //find the current node by its index
+            Patient parent = patients.get(parent(index)); //get the parent of current node
+            if (parent.getTriage() > current.getTriage() ){ //if parent's triage # is higher than current
+                //swap parent and current's index
+                swap(index, parent(index));
+                index = parent(index);//move to nodes current location (since it swapped with parent)
+            } else {break;}//end if/else
+        }//end while
+    }//end heapifyUp
+
+    public void heapifyDown(int index) {
+
+    }//end heapifyDown
+
+    public void swap(int index1, int index2){
+        if (index1 >= 0 && index1 < patients.size() && index2 >= 0 && index2 < patients.size()) {
+            //swap the two patients in the min heap
+            Patient temp = patients.get(index1);
+            patients.set(index1, patients.get(index2)); //puts node 2 in index 1
+            patients.set(index2, temp); //puts node 1 in index 2
+
+            //System.out.println(patients.get(index1));
+            //System.out.println(patients.get(index2));
+        } else {
+            System.out.println("Error: Index out of bounds");
+        }
+    }//end swap
 
     //HELPERS FOR NAVIGATING INDEXES UP/DOWN THE TREE
     //figure out if node is leaf (return true if leaf): takes in index in ArrayList
