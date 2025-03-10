@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Schedule {
     private Boolean[] openRooms = new Boolean [10];//true if room open, false if room occupied
     private ArrayList<Patient> patients = new ArrayList<>(); //min heap of patients (most urgent on top)
+    Scanner input = new Scanner(System.in);
     //one open room for super urgent patients
 
     //what to do if several urgent patients arrive at once?
@@ -55,9 +58,6 @@ public class Schedule {
             Patient temp = patients.get(index1);
             patients.set(index1, patients.get(index2)); //puts node 2 in index 1
             patients.set(index2, temp); //puts node 1 in index 2
-
-            //System.out.println(patients.get(index1));
-            //System.out.println(patients.get(index2));
         } else {
             System.out.println("Error: Index out of bounds");
         }
@@ -106,5 +106,13 @@ public class Schedule {
     }//end hasRightChild
 
     //END POSITION HELPERS
+
+    public void updatePatientStatus(Patient patient) {
+        System.out.println("What is the patient's new status?");
+        int newStatus = input.nextInt();
+        patient.setTriage(newStatus);
+        System.out.println("Patient's status has been updated to: " + newStatus);
+
+    }
 
 }//end Schedule class
