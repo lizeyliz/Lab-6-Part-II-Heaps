@@ -14,12 +14,20 @@ public class Schedule {
     //add a new patient to patients heap
     public void insert(Patient patient){
         patients.add(patient);//add to patients array 
-        int currentIndex = patients.size() - 1;
-        //heapifyUp(currentIndex);
+        heapifyUp();
     }//end insert
 
+    //returns and removes root node: important for call next patient method
+    public void popRoot(){
+        Patient last = patients.get(patients.size()-1);//get node at last index
+        Patient root = patients.get(0);//save current value at index 0
+        //replace root (index 0) with last element in patients Arraylist
+        patients.set(0, last);
+        //heapify down
+    }//end popRoot
+
     //check node is placed correctly for a min heap by moving upwards
-    public void heapifyUp(){
+    public void heapifyUp() {
         int index = patients.size() - 1; //start at last element in
         while (index > 0) { //loop until you get to first element
             Patient current = patients.get(index); //find the current node by its index
@@ -32,8 +40,13 @@ public class Schedule {
         }//end while
     }//end heapifyUp
 
-    public void heapifyDown(int index) {
+    //check node is placed correctly for a min heap by moving down
+    public void heapifyDown() {
+        int index = 0;//start at top
+        while (index < patients.size() - 1){
+            Patient current = patients.get(index);
 
+        }//end while loop
     }//end heapifyDown
 
     public void swap(int index1, int index2){
