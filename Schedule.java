@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Schedule {
-    private Boolean[] openRooms = new Boolean [10];//true if room open, false if room occupied
+    private Patient[] rooms = new Patient [10];//array of rooms with the patient currently in them, null if empty
     private ArrayList<Patient> patients = new ArrayList<>(); //min heap of patients (most urgent on top)
     Scanner input = new Scanner(System.in);
     //one open room for super urgent patients
@@ -44,16 +44,19 @@ public class Schedule {
     }//end heapifyUp
 
     //check node is placed correctly for a min heap by moving down
-    public void heapifyDown() {
-        int index = 0;//start at top
-        while (index < patients.size() - 1){ //loop until you reach the last elemnent
-            Patient current = patients.get(index); //find curent node by its index
-            Patient parent = patients.get(parent(index)); //get the parent of current ndoe
-            if (parent.getTriage() > current.getTriage() ){ //if parent's triage # is higher than current
-                //swap parent and current's index
-                swap(index, parent(index));
-                index = parent(index);//move to nodes current location (since it swapped with parent)
-            } else {break;}//end if/else
+    //improper value in at index is swapped with its smaller child until it is smaller than its children
+    public void heapifyDown(int index) {
+        while (hasLeftChild(index)) {
+            int smallerChildIndex = leftChild(index);
+            if (hasRightChild(index) && patients.get(rightChild(index)).getTriage() < patients.get(leftChild(index)).getTriage()) {
+                smallerChildIndex = rightChild(index);
+            }//checks if right child is smaller
+            if (patients.get(index).getTriage() < patients.get(smallerChildIndex).getTriage()) {
+                break;
+            } else {
+                swap(index, smallerChildIndex);
+            }
+            index = smallerChildIndex;
         }//end while loop
     }//end heapifyDown
 
@@ -80,17 +83,17 @@ public class Schedule {
 
     //return index of the parent of the given node: (takes in given node's index)
     private int parent(int index) {
-        return index/2;
+        return (index - 1) / 2;
     }//end parent
 
     //returns index of left child of given node (takes in given node's index)
     private int leftChild(int index) {
-        return index*2;
+        return index*2 + 1;
     }//end leftChild
 
     //returns index of right child of given node (takes in given node's index)
     private int rightChild(int index) {
-        return index*2 + 1; 
+        return index*2 + 2; 
     }//end rightChild
 
     //returns true if node has parent: takes in node's index
