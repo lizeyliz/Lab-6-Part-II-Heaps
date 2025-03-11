@@ -8,17 +8,23 @@ public class Main {
         Patient John = new Patient("John", "Doe", 19, LocalDateTime.now(), 3);
         schedule.insert(John);
 
-        Patient Sarah = new Patient("Sarah", "Smith", 19, LocalDateTime.now(), 5);
-        schedule.insert(Sarah);
+        Patient Mary = new Patient("Mary", "Smith", 27, LocalDateTime.now(), 5);
+        schedule.insert(Mary);
 
-        Patient Tommy = new Patient("Tommy", "Innit", 16, LocalDateTime.now(), 1);
-        schedule.insert(Tommy);
+        Patient Robert = new Patient("Robert", "Grayson", 16, LocalDateTime.now(), 1);
+        schedule.insert(Robert);
 
-        Patient Aliza = new Patient("Aliza", "E", 16, LocalDateTime.now(), 2);
-        schedule.insert(Aliza);
+        Patient Olivia = new Patient("Olivia", "Evans", 35, LocalDateTime.now(), 2);
+        schedule.insert(Olivia);
 
-        Patient Techno = new Patient("Techno", "Blade", 21, LocalDateTime.now(), 3);
-        schedule.insert(Techno);
+        Patient Charles = new Patient("Charles", "Watson", 21, LocalDateTime.now(), 3);
+        schedule.insert(Charles);
+
+        Patient Ella = new Patient("Ella", "Jones", 54, LocalDateTime.now(), 4);
+        schedule.insert(Ella);
+
+        Patient Jack = new Patient("Jack", "Thomas", 72, LocalDateTime.now(), 1);
+        schedule.insert(Jack);
 
 
         //schedule.print();

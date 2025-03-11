@@ -1,5 +1,7 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Schedule {
@@ -85,18 +87,38 @@ public class Schedule {
 
     //creates a patient from user input and adds to heap
     public void createPatient() {
+        LocalDateTime admitTime = admitTime(input);
         System.out.println("Enter patient's first name: ");
         String firstName = input.next();
         System.out.println("Enter patient's last name: ");
         String lastName = input.next();
         System.out.println("Enter patient's age: ");
         int age = input.nextInt();
-        LocalDateTime current = LocalDateTime.now(); //change later
         System.out.println("Enter patient's triage status: ");
         int triageNum = input.nextInt();
 
-        Patient newPatient = new Patient(firstName, lastName, age, current, triageNum);
+        Patient newPatient = new Patient(firstName, lastName, age, admitTime, triageNum);
         insert(newPatient);
+    }
+
+    //helper method to obtain patient admit time in localDateTime format
+    public LocalDateTime admitTime(Scanner input) { //WORK ON EXCEPTION CATCHING
+        String admitDate;
+        String admitTime;
+        String admitDateTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+         
+        System.out.println("Enter admit time: ");
+        admitTime = input.next();
+        
+        System.out.println("Enter admit date (yyyy-MM-dd): ");
+        admitDate = input.next();
+         
+
+        admitDateTime = admitDate + "T" + admitTime;
+        LocalDateTime patientAdmit = LocalDateTime.parse(admitDateTime);
+
+        return patientAdmit;
     }
 
     //calls in the next patient
@@ -108,12 +130,12 @@ public class Schedule {
     }
 
     public void checkIfRoomEmpty(){
-        for(int i = 1; i < rooms.length; i++) {
+        for(int i = 0; i < rooms.length; i++) {
             if(!(rooms[i] == null)) { //if the room is empty
-                System.out.println("Room #" + i + " is full");
+                System.out.println(rooms[i].getFirstName()+" " +rooms[i].getLastName() + " is in Room #" + (i+1));
             }
             else{
-                System.out.println("Room #" + i + " is empty");
+                System.out.println("Room #" + (i+1) + " is empty");
             }
         }
     }
@@ -227,7 +249,7 @@ public class Schedule {
         System.out.println("Welcome to the ER's Patient Scheduler.");
         
         while (choice <= 7) {
-            System.out.println("Choose an option:\n");
+            System.out.println("\nChoose an option:");
             System.out.println("1. Add a patient to the system\n"+
                             "2. Update the triage status of a patient\n" +
                             "3. Discharge patient\n" +
