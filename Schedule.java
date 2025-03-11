@@ -18,7 +18,7 @@ public class Schedule {
     //add a new patient to patients heap
     public void insert(Patient patient){
         patients.add(patient);//add to patients array 
-        heapifyUp();
+        heapifyUp(patients.size()-1);
     }//end insert
 
     //places the patient on the top of the heap in a room
@@ -72,7 +72,7 @@ public class Schedule {
         int index = patients.indexOf(patient);
 
         if(patient.getTriage() < patients.get(parent(index)).getTriage()) { //if the patient's triage number is less than the parent, then heapify up
-            heapifyUp(); //FIX BC IT WONT UPDATE AFTER CHANGE
+            heapifyUp(index); //FIX BC IT WONT UPDATE AFTER CHANGE
         } else if (patient.getTriage() > patients.get(leftChild(index)).getTriage() || patient.getTriage() > patients.get(rightChild(index)).getTriage()) {
             heapifyDown(index);
         }
@@ -127,8 +127,7 @@ public class Schedule {
     }//end dischargePatient
 
     //check node is placed correctly for a min heap by moving upwards
-    public void heapifyUp() {
-        int index = patients.size() - 1; //start at last element in
+    public void heapifyUp(int index) {
         while (index > 0) { //loop until you get to first element
             Patient current = patients.get(index); //find the current node by its index
             Patient parent = patients.get(parent(index)); //get the parent of current node
