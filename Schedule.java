@@ -21,12 +21,15 @@ public class Schedule {
     }//end insert
 
     //returns and removes root node: important for call next patient method
-    public void popRoot(){
+    public Patient popRoot(){
         Patient last = patients.get(patients.size()-1);//get node at last index
         Patient root = patients.get(0);//save current value at index 0
         //replace root (index 0) with last element in patients Arraylist
         patients.set(0, last);
-        //heapify down
+        //heapify down to ensure the heap is properly organized
+        heapifyDown(0);
+        //return patient at root node
+        return root;
     }//end popRoot
 
     //check node is placed correctly for a min heap by moving upwards
