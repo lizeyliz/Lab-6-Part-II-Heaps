@@ -1,5 +1,6 @@
 //object class; creates a patient object
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 class Patient {
     private String firstName;
     private String lastName;
@@ -76,7 +77,11 @@ class Patient {
     //toString: need to update
     @Override
     public String toString() {
+        //adding a thing to format local date time for printing
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm yyyy/MM/dd");
+        String formattedAdmitTime = admitTime.format(formatter);
+
         return "Name: " + firstName + " " + lastName +
-         "\nAge: " + age +  "\nAdmit Time: " + admitTime + "\nTriage Level: " + triage;
+         "\nAge: " + age +  "\nAdmit Time: " + formattedAdmitTime + "\nTriage Level: " + triage;
     }//end toString
 }//end class patient

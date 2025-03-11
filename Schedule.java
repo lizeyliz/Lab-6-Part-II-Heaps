@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -40,7 +41,6 @@ public class Schedule {
     }//end callPatient
 
     //returns and removes root node: important for call next patient method
-    
     public Patient popRoot(){
         Patient last = patients.get(patients.size()-1);//get node at last index
         Patient root = patients.get(0);//save current value at index 0
@@ -68,7 +68,7 @@ public class Schedule {
     }
 
     //updates the triage status of a patient
-    public void updatePatientStatus() {
+    public void updatePatientStatus(Scanner input) {
         Patient patient = chosePatient();
         System.out.println("What is the patient's new status?");
         int newStatus = input.nextInt();
@@ -86,7 +86,7 @@ public class Schedule {
     }
 
     //creates a patient from user input and adds to heap
-    public void createPatient() {
+    public void createPatient(Scanner input) {
         LocalDateTime admitTime = admitTime(input);
         System.out.println("Enter patient's first name: ");
         String firstName = input.next();
@@ -100,23 +100,35 @@ public class Schedule {
         Patient newPatient = new Patient(firstName, lastName, age, admitTime, triageNum);
         insert(newPatient);
     }
-
+    
     //helper method to obtain patient admit time in localDateTime format
     public LocalDateTime admitTime(Scanner input) { //WORK ON EXCEPTION CATCHING
         String admitDate;
         String admitTime;
         String admitDateTime;
+        LocalDateTime patientAdmit = null;;
+        boolean check = false;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
          
-        System.out.println("Enter admit time: ");
-        admitTime = input.next();
         
-        System.out.println("Enter admit date (yyyy-MM-dd): ");
-        admitDate = input.next();
-         
+        while(!check) {
+            System.out.println("Enter admit time: ");
+            admitTime = input.next();
+        
+            System.out.println("Enter admit date (yyyy-MM-dd): ");
+            admitDate = input.next();
+            admitDateTime = admitDate + "T" + admitTime;
 
-        admitDateTime = admitDate + "T" + admitTime;
-        LocalDateTime patientAdmit = LocalDateTime.parse(admitDateTime);
+            try {
+                patientAdmit = LocalDateTime.parse(admitDateTime);
+                check = true;
+            } catch (DateTimeParseException e) {
+                check = false;
+                //patientAdmit = null;
+                System.out.println("invalid option");
+
+            }
+        }
 
         return patientAdmit;
     }
@@ -129,6 +141,7 @@ public class Schedule {
         
     }
 
+    //method to print out if the room is empty or not
     public void checkIfRoomEmpty(){
         for(int i = 0; i < rooms.length; i++) {
             if(!(rooms[i] == null)) { //if the room is empty
@@ -150,7 +163,7 @@ public class Schedule {
             }//end if
         }//end for loop
         int roomIndex = input.nextInt();
-        rooms[roomIndex] = null;
+        rooms[roomIndex-1] = null;
     }//end dischargePatient
 
     //check node is placed correctly for a min heap by moving upwards
@@ -183,6 +196,7 @@ public class Schedule {
         }//end while loop
     }//end heapifyDown
 
+    //swaps two nodes
     public void swap(int index1, int index2){
         if (index1 >= 0 && index1 < patients.size() && index2 >= 0 && index2 < patients.size()) {
             //swap the two patients in the min heap
@@ -238,12 +252,14 @@ public class Schedule {
 
     //END POSITION HELPERS
 
+    //prints out the heap of patients
     public void print() {
         for(Patient p: patients) {
             System.out.println(p.toString() + "\n");
         }
     }
 
+    //user interface to interact with program
     public void userMenu(){
         int choice = 0;
         System.out.println("Welcome to the ER's Patient Scheduler.");
@@ -255,16 +271,16 @@ public class Schedule {
                             "3. Discharge patient\n" +
                             "4. Call next patient in\n" +
                             "5. Check which rooms are empty\n" +
-                            "6. Print out patient list\n" +
+                            "6. Print waiting list\n" +
                             "7. Exit Program");
             choice = input.nextInt();
             switch (choice) {
                 case 1: //add patient
-                    createPatient();
+                    createPatient(input);
                     break;
     
                 case 2: //change triage status 
-                    updatePatientStatus();
+                    updatePatientStatus(input);
                     break;
     
                 case 3: //discharge patient

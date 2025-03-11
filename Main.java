@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Schedule schedule = new Schedule();
 
-        Patient John = new Patient("John", "Doe", 19, LocalDateTime.now(), 3);
+        Patient John = new Patient("John", "Ferrell", 19, LocalDateTime.now(), 3);
         schedule.insert(John);
 
         Patient Mary = new Patient("Mary", "Smith", 27, LocalDateTime.now(), 5);
@@ -23,12 +23,19 @@ public class Main {
         Patient Ella = new Patient("Ella", "Jones", 54, LocalDateTime.now(), 4);
         schedule.insert(Ella);
 
-        Patient Jack = new Patient("Jack", "Thomas", 72, LocalDateTime.now(), 1);
+        Patient Jack = new Patient("Jack", "Lowery", 72, LocalDateTime.now(), 1);
         schedule.insert(Jack);
 
+        Patient Abigail  = new Patient("Abigail", "Larsen", 5, LocalDateTime.now(), 5);
+        schedule.insert(Abigail);
 
-        //schedule.print();
-        //schedule.updatePatientStatus();
+        Patient Troy = new Patient("Troy", "Anderson", 5, LocalDateTime.now(), 4);
+        schedule.insert(Troy);
+
+        Patient Cara = new Patient("Cara", "Adams", 5, LocalDateTime.now(), 2);
+        schedule.insert(Cara);
+
+
         schedule.userMenu();
         
 
