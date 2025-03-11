@@ -20,6 +20,19 @@ public class Schedule {
         heapifyUp();
     }//end insert
 
+    //places the patient on the top of the heap in a room
+    public void placePatient() {
+        for (int i = 0; i < rooms.length; i++) { //traverse rooms array
+            if (rooms[i] == null){
+                //place patient at that index
+                rooms[i] = popRoot();
+                return;//exit method because patient has been placed
+            }//end if
+            //rooms array has no empty spots
+            System.out.println("All rooms are full.");
+        }//traverse room array
+    }//end callPatient
+
     //returns and removes root node: important for call next patient method
     public Patient popRoot(){
         Patient last = patients.get(patients.size()-1);//get node at last index
