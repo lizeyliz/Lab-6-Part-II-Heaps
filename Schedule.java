@@ -30,11 +30,15 @@ public class Schedule {
                 return;//exit method because patient has been placed
             }//end if
             //rooms array has no empty spots
-            System.out.println("All rooms are full.");
+            if(i == rooms.length-1) { //prints out if all rooms are full
+                System.out.println("All rooms are full.");
+            }
+            
         }//traverse room array
     }//end callPatient
 
     //returns and removes root node: important for call next patient method
+    
     public Patient popRoot(){
         Patient last = patients.get(patients.size()-1);//get node at last index
         Patient root = patients.get(0);//save current value at index 0
@@ -47,7 +51,7 @@ public class Schedule {
         //return patient at root node
         return root;
     }//end popRoot
-
+    
     //helper method that chooses a patient from the list
     public Patient chosePatient() {
         System.out.println("Enter 'y' for the patient you wish you update");
@@ -96,14 +100,15 @@ public class Schedule {
     }
 
     //calls in the next patient
-    public void callInNextPatient(){ //DELETE METHOD AND ADD TO PLACE SOMETHING
-        Patient nextPatient = popRoot(); //removes the min of the heap
+    public void callInNextPatient(){ 
+        Patient nextPatient = patients.get(0); //gets the min of the heap
+        placePatient();
         System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
         
     }
 
     public void checkIfRoomEmpty(){
-        for(int i = 0; i < rooms.length; i++) {
+        for(int i = 1; i < rooms.length; i++) {
             if(!(rooms[i] == null)) { //if the room is empty
                 System.out.println("Room #" + i + " is full");
             }
