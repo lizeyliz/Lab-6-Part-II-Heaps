@@ -108,7 +108,6 @@ public class Schedule {
         String admitDateTime;
         LocalDateTime patientAdmit = null;;
         boolean check = false;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
          
         
         while(!check) {
