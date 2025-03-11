@@ -46,9 +46,14 @@ public class Schedule {
     //check node is placed correctly for a min heap by moving down
     public void heapifyDown() {
         int index = 0;//start at top
-        while (index < patients.size() - 1){
-            Patient current = patients.get(index);
-
+        while (index < patients.size() - 1){ //loop until you reach the last elemnent
+            Patient current = patients.get(index); //find curent node by its index
+            Patient parent = patients.get(parent(index)); //get the parent of current ndoe
+            if (parent.getTriage() > current.getTriage() ){ //if parent's triage # is higher than current
+                //swap parent and current's index
+                swap(index, parent(index));
+                index = parent(index);//move to nodes current location (since it swapped with parent)
+            } else {break;}//end if/else
         }//end while loop
     }//end heapifyDown
 
