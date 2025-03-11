@@ -45,6 +45,20 @@ public class Schedule {
         return root;
     }//end popRoot
 
+
+    //remove patient from rooms array, clearing a spot
+    //ADD exception catching
+    public void dischargePatient(Scanner input) {
+        System.out.println("Which patient would you like to discharge? Enter room number");
+        for (int i = 0; i < rooms.length; i++) { //print all taken rooms and their occupants
+            if (rooms[i] != null){
+                System.out.println("Room " + (i+1) + ": " + rooms[i].getFirstName() + " " + rooms[i].getLastName());
+            }//end if
+        }//end for loop
+        int roomIndex = input.nextInt();
+        rooms[roomIndex] = null;
+    }//end dischargePatient
+
     //check node is placed correctly for a min heap by moving upwards
     public void heapifyUp() {
         int index = patients.size() - 1; //start at last element in
