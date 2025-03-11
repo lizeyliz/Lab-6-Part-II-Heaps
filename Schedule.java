@@ -96,10 +96,10 @@ public class Schedule {
     }
 
     //calls in the next patient
-    public void callInNextPatient(){
+    public void callInNextPatient(){ //DELETE METHOD AND ADD TO PLACE SOMETHING
         Patient nextPatient = popRoot(); //removes the min of the heap
         System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
-        placePatient(); //places the patient in a room
+        
     }
 
     public void checkIfRoomEmpty(){
