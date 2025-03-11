@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,12 +40,78 @@ public class Schedule {
         Patient root = patients.get(0);//save current value at index 0
         //replace root (index 0) with last element in patients Arraylist
         patients.set(0, last);
+        //remove the last element from the list
+        patients.remove(patients.size() - 1);
         //heapify down to ensure the heap is properly organized
         heapifyDown(0);
         //return patient at root node
         return root;
     }//end popRoot
 
+    //helper method that chooses a patient from the list
+    public Patient chosePatient() {
+        System.out.println("Enter 'y' for the patient you wish you update");
+        for(Patient p: patients) {
+            System.out.println(p.toString());
+            String choice = input.next();
+            if(choice.equals("y") || choice.equals("Y")) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    //updates the triage status of a patient
+    public void updatePatientStatus() {
+        Patient patient = chosePatient();
+        System.out.println("What is the patient's new status?");
+        int newStatus = input.nextInt();
+        patient.setTriage(newStatus);
+        System.out.println("Patient's status has been updated to: " + newStatus);
+
+        int index = patients.indexOf(patient);
+
+        if(patient.getTriage() < patients.get(parent(index)).getTriage()) { //if the patient's triage number is less than the parent, then heapify up
+            heapifyUp();
+        } else if (patient.getTriage() > patients.get(leftChild(index)).getTriage() || patient.getTriage() > patients.get(rightChild(index)).getTriage()) {
+            heapifyDown(index);
+        }
+
+    }
+
+    //creates a patient from user input and adds to heap
+    public void createPatient() {
+        System.out.println("Enter patient's first name: ");
+        String firstName = input.next();
+        System.out.println("Enter patient's last name: ");
+        String lastName = input.next();
+        System.out.println("Enter patient's age: ");
+        int age = input.nextInt();
+        LocalDateTime current = LocalDateTime.now(); //change later
+        System.out.println("Enter patient's triage status: ");
+        int triageNum = input.nextInt();
+
+        Patient newPatient = new Patient(firstName, lastName, age, current, triageNum);
+        insert(newPatient);
+    }
+
+    //calls in the next patient
+    public void callInNextPatient(){
+        Patient nextPatient = popRoot(); //removes the min of the heap
+        System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
+        placePatient(); //places the patient in a room
+    }
+
+    public void checkIfRoomEmpty(){
+        for(int i = 0; i < rooms.length; i++) {
+            if(!(rooms[i] == null)) { //if the room is empty
+                System.out.println("Room #" + i + " is full");
+            }
+            else{
+                System.out.println("Room #" + i + " is empty");
+            }
+        }
+    }
 
     //remove patient from rooms array, clearing a spot
     //ADD exception catching
@@ -145,12 +212,62 @@ public class Schedule {
 
     //END POSITION HELPERS
 
-    public void updatePatientStatus(Patient patient) {
-        System.out.println("What is the patient's new status?");
-        int newStatus = input.nextInt();
-        patient.setTriage(newStatus);
-        System.out.println("Patient's status has been updated to: " + newStatus);
+    public void print() {
+        for(Patient p: patients) {
+            System.out.println(p.toString() + "\n");
+        }
+    }
 
+    public void userMenu(){
+        int choice = 0;
+        System.out.println("Welcome to the ER's Patient Scheduler.");
+        
+        while (choice <= 7) {
+            System.out.println("Choose an option:\n");
+            System.out.println("1. Add a patient to the system\n"+
+                            "2. Update the triage status of a patient\n" +
+                            "3. Discharge patient\n" +
+                            "4. Call next patient in\n" +
+                            "5. Check which rooms are empty\n" +
+                            "6. Print out patient list\n" +
+                            "7. Exit Program");
+            choice = input.nextInt();
+            switch (choice) {
+                case 1: //add patient
+                    createPatient();
+                    break;
+    
+                case 2: //change triage status 
+                    updatePatientStatus();
+                    break;
+    
+                case 3: //discharge patient
+                    dischargePatient(input);
+                    break;
+    
+                case 4: //call in next patient
+                    callInNextPatient();
+                    break;
+    
+                case 5: //check which rooms are empty
+                    checkIfRoomEmpty();
+                    break;
+                
+                case 6: //print out list
+                    print();
+                    break;
+    
+                case 7: //system exit
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("invalid option.");
+                    break;
+            }
+
+        }
+        
     }
 
 }//end Schedule class
