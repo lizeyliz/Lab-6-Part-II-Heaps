@@ -72,7 +72,7 @@ public class Schedule {
         int index = patients.indexOf(patient);
 
         if(patient.getTriage() < patients.get(parent(index)).getTriage()) { //if the patient's triage number is less than the parent, then heapify up
-            heapifyUp();
+            heapifyUp(); //FIX BC IT WONT UPDATE AFTER CHANGE
         } else if (patient.getTriage() > patients.get(leftChild(index)).getTriage() || patient.getTriage() > patients.get(rightChild(index)).getTriage()) {
             heapifyDown(index);
         }
