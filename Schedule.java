@@ -29,6 +29,7 @@ public class Schedule {
             if (rooms[i] == null){
                 //place patient at that index
                 rooms[i] = popRoot();
+                System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
                 return;//exit method because patient has been placed
             }//end if
             //rooms array has no empty spots
@@ -36,7 +37,6 @@ public class Schedule {
                 System.out.println("All rooms are full.");
             }//end if    
         }//traverse room array
-        System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
     }//end callInNextPatient
 
     //returns and removes root node: important for call next patient method
