@@ -61,7 +61,7 @@ public class Schedule {
             }
         }
         return null;
-    }
+    }//end choosePatient
 
     //updates the triage status of a patient
     public void updatePatientStatus(Scanner input) {
@@ -82,7 +82,7 @@ public class Schedule {
 
     //creates a patient from user input and adds to heap
     public void createPatient(Scanner input) {
-        LocalDateTime admitTime = LocalDateTime.now();
+        LocalDateTime admitTime = LocalDateTime.now(); //current time when patient is added
         System.out.println("Enter patient's first name: ");
         String firstName = input.next();
         System.out.println("Enter patient's last name: ");
@@ -106,21 +106,33 @@ public class Schedule {
                 System.out.println("Room #" + (i+1) + " is empty");
             }
         }
-    }
+    }//end checkIfRoomEmpty
 
     //remove patient from rooms array, clearing a spot
     //ADD exception catching
     public void dischargePatient(Scanner input) {
-        System.out.println("Which patient would you like to discharge? Enter room number");
-        for (int i = 0; i < rooms.length; i++) { //print all taken rooms and their occupants
-            if (rooms[i] != null){
-                System.out.println("Room " + (i+1) + ": " + rooms[i].getFirstName() + " " + rooms[i].getLastName());
-            }//end if
-        }//end for loop
-        int roomIndex = input.nextInt();
-        Patient d = rooms[roomIndex - 1];
-        rooms[roomIndex-1] = null;
-        System.out.println(d.getFirstName() + " " + d.getLastName() + " has been discharged. Room " + roomIndex + " is now free.");
+        while(true){
+            try {
+                System.out.println("Which patient would you like to discharge? Enter room number");
+                for (int i = 0; i < rooms.length; i++) { //print all taken rooms and their occupants
+                    if (rooms[i] != null){
+                        System.out.println("Room " + (i+1) + ": " + rooms[i].getFirstName() + " " + rooms[i].getLastName());
+                    }//end if
+                }//end for loop
+                int roomIndex = input.nextInt() - 1;
+                if (roomIndex >= 0 && roomIndex < rooms.length && rooms[roomIndex] != null) {//check it's a number of an occupied room
+                    Patient d = rooms[roomIndex];
+                    rooms[roomIndex] = null;
+                    System.out.println(d.getFirstName() + " " + d.getLastName() + " has been discharged. Room " + (roomIndex+1) + " is now free.");
+                    return;
+                } else {
+                    System.out.println("Enter the number of an occupied room.");
+                }
+            } catch (Exception e) {
+                System.out.println("Incorrect input.");
+                input.nextLine();//consume newline
+            }//end try/catch
+        }//end while loop
     }//end dischargePatient
 
     //check node is placed correctly for a min heap by moving upwards
