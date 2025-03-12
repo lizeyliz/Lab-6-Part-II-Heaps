@@ -109,7 +109,6 @@ public class Schedule {
     }//end checkIfRoomEmpty
 
     //remove patient from rooms array, clearing a spot
-    //ADD exception catching
     public void dischargePatient(Scanner input) {
         while(true){
             try {
@@ -178,14 +177,6 @@ public class Schedule {
     }//end swap
 
     //HELPERS FOR NAVIGATING INDEXES UP/DOWN THE TREE
-    //figure out if node is leaf (return true if leaf): takes in index in ArrayList
-    public Boolean isLeaf(int index) {
-        if (index > patients.size()/2){
-            return true; 
-        } else {
-            return false;
-        }//end if else
-    }//end isLeaf
 
     //return index of the parent of the given node: (takes in given node's index)
     private int parent(int index) {
