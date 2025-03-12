@@ -1,8 +1,6 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Schedule {
@@ -251,12 +249,12 @@ public class Schedule {
 
     //END POSITION HELPERS
 
-    //prints out the heap of patients
+    //prints out the heap of patients waiting
     public void print() {
         for(Patient p: patients) {
             System.out.println(p.toString() + "\n");
-        }
-    }
+        }//end for loop
+    }//end print method
 
     //user interface to interact with program
     public void userMenu(){
@@ -294,7 +292,7 @@ public class Schedule {
                     checkIfRoomEmpty();
                     break;
                 
-                case 6: //print out list
+                case 6: //print out list of waiting patients
                     print();
                     break;
     
@@ -305,10 +303,7 @@ public class Schedule {
                 default:
                     System.out.println("invalid option.");
                     break;
-            }
-
-        }
-        
-    }
-
+            }//end switch/choice
+        }//end while loop
+    }//end user menu
 }//end Schedule class
