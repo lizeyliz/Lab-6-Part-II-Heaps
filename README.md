@@ -3,7 +3,7 @@
 - CS 240
 - 3/11/2025
 ## Purpose
-- Create an ER scheduling program using a min heap organized by patient's triage level. Gives user the option to add a patient to the waiting list, change a patient's triage status, discharge a patient, call in a patient, check which rooms are empty, or print out the waiting list.
+- Create an ER scheduling program using a min-heap organized by patient triage level. Calls in patients with the lowest triage level (most urgent) first. It allows the user to add a patient to the waiting list, change a patient's triage status, discharge a patient, call in a patient, check which rooms are empty, or print out the waiting list.
 ## Triage Levels
 - Level 1 (resuscitation): requires immediate, life-saving intervention and includes patients with cardiopulmonary arrest, major trauma, severe  respiratory distress, and seizures. 
 - Level 2 (emergent): requires an immediate nursing assessment and rapid treatment and includes patients who are in a high-risk situation, are  confused, lethargic, or disoriented, or have severe pain or distress, including  patients with stroke, head injuries, asthma, and sexual-assault injuries.
