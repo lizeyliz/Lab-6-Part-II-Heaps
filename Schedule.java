@@ -6,9 +6,6 @@ public class Schedule {
     private Patient[] rooms = new Patient [10];//array of rooms with the patient currently in them, null if empty
     private ArrayList<Patient> patients = new ArrayList<>(); //min heap of patients (most urgent on top)
     Scanner input = new Scanner(System.in);
-    //one open room for super urgent patients
-
-    //what to do if several urgent patients arrive at once?
 
     //constructor
     public Schedule() {
