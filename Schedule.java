@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Schedule {
     //initialize section
     private Patient[] rooms = new Patient [10];//array of rooms with the patient currently in them, null if empty
@@ -21,6 +20,10 @@ public class Schedule {
 
     //calls in the next patient
     public void callInNextPatient(){ 
+        if (patients.isEmpty()) {//no patients added to waiting list
+            System.out.println("No patients are waiting.");
+            return;
+        }//end if
         Patient nextPatient = patients.get(0); //gets the min of the heap
         for (int i = 0; i < rooms.length; i++) { //traverse rooms array
             if (rooms[i] == null){
@@ -110,6 +113,21 @@ public class Schedule {
 
     //remove patient from rooms array, clearing a spot
     public void dischargePatient(Scanner input) {
+        //check if rooms array is empty
+        boolean allNull = true;
+        for (Patient element : rooms) {
+            if (element != null) {
+                allNull = false;
+                break;
+            }
+        }
+        
+        if (allNull) {
+            // All elements in the array are null
+            System.out.println("All rooms are empty.");
+            return;
+        }
+        //end check if rooms array is empty
         while(true){
             try {
                 System.out.println("Which patient would you like to discharge? Enter room number");

@@ -1,10 +1,10 @@
-import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
         Schedule schedule = new Schedule();
 
-        Patient John = new Patient("John", "Ferrell", 19, LocalDateTime.now(), 3);
+        //preloading patients into system
+        /*Patient John = new Patient("John", "Ferrell", 19, LocalDateTime.now(), 3);
         schedule.insert(John);
 
         Patient Mary = new Patient("Mary", "Smith", 27, LocalDateTime.now(), 5);
@@ -32,11 +32,10 @@ public class Main {
         schedule.insert(Troy);
 
         Patient Cara = new Patient("Cara", "Adams", 5, LocalDateTime.now(), 2);
-        schedule.insert(Cara);
+        schedule.insert(Cara);*/
 
-
+        //run the program
         schedule.userMenu();
-
     }//end main
     
 }//end class main1
