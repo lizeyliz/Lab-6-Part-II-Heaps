@@ -85,7 +85,7 @@ public class Schedule {
 
     //creates a patient from user input and adds to heap
     public void createPatient(Scanner input) {
-        LocalDateTime admitTime = admitTime(input);
+        LocalDateTime admitTime = LocalDateTime.now();
         System.out.println("Enter patient's first name: ");
         String firstName = input.next();
         System.out.println("Enter patient's last name: ");
@@ -97,7 +97,7 @@ public class Schedule {
 
         Patient newPatient = new Patient(firstName, lastName, age, admitTime, triageNum);
         insert(newPatient);
-    }
+    }//end createPatient
     
     //helper method to obtain patient admit time in localDateTime format
     public LocalDateTime admitTime(Scanner input) { //WORK ON EXCEPTION CATCHING
