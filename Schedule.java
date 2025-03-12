@@ -160,7 +160,9 @@ public class Schedule {
             }//end if
         }//end for loop
         int roomIndex = input.nextInt();
+        Patient d = rooms[roomIndex - 1];
         rooms[roomIndex-1] = null;
+        System.out.println(d.getFirstName() + " " + d.getLastName() + " has been discharged. Room " + roomIndex + " is now free.");
     }//end dischargePatient
 
     //check node is placed correctly for a min heap by moving upwards
