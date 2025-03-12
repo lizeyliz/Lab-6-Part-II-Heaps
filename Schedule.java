@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Schedule {
+    //initialize section
     private Patient[] rooms = new Patient [10];//array of rooms with the patient currently in them, null if empty
     private ArrayList<Patient> patients = new ArrayList<>(); //min heap of patients (most urgent on top)
     Scanner input = new Scanner(System.in);
@@ -18,8 +19,9 @@ public class Schedule {
         heapifyUp(patients.size()-1);
     }//end insert
 
-    //places the patient on the top of the heap in a room
-    public void placePatient() {
+    //calls in the next patient
+    public void callInNextPatient(){ 
+        Patient nextPatient = patients.get(0); //gets the min of the heap
         for (int i = 0; i < rooms.length; i++) { //traverse rooms array
             if (rooms[i] == null){
                 //place patient at that index
@@ -29,10 +31,10 @@ public class Schedule {
             //rooms array has no empty spots
             if(i == rooms.length-1) { //prints out if all rooms are full
                 System.out.println("All rooms are full.");
-            }
-            
+            }//end if    
         }//traverse room array
-    }//end callPatient
+        System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
+    }//end callInNextPatient
 
     //returns and removes root node: important for call next patient method
     public Patient popRoot(){
@@ -49,7 +51,7 @@ public class Schedule {
     }//end popRoot
     
     //helper method that chooses a patient from the list
-    public Patient chosePatient() {
+    public Patient choosePatient() {
         System.out.println("Enter 'y' for the patient you wish you update");
         for(Patient p: patients) {
             System.out.println(p.toString());
@@ -63,21 +65,20 @@ public class Schedule {
 
     //updates the triage status of a patient
     public void updatePatientStatus(Scanner input) {
-        Patient patient = chosePatient();
+        Patient patient = choosePatient();
         System.out.println("What is the patient's new status?");
         int newStatus = input.nextInt();
         patient.setTriage(newStatus);
         System.out.println("Patient's status has been updated to: " + newStatus);
 
         int index = patients.indexOf(patient);
-
-        if(patient.getTriage() < patients.get(parent(index)).getTriage()) { //if the patient's triage number is less than the parent, then heapify up
-            heapifyUp(index); //FIX BC IT WONT UPDATE AFTER CHANGE
+        //if the patient's triage number is less than the parent, then heapify up
+        if(patient.getTriage() < patients.get(parent(index)).getTriage()) {
+            heapifyUp(index);
         } else if (patient.getTriage() > patients.get(leftChild(index)).getTriage() || patient.getTriage() > patients.get(rightChild(index)).getTriage()) {
             heapifyDown(index);
         }
-
-    }
+    }//end updatePatientStatus
 
     //creates a patient from user input and adds to heap
     public void createPatient(Scanner input) {
@@ -94,14 +95,6 @@ public class Schedule {
         Patient newPatient = new Patient(firstName, lastName, age, admitTime, triageNum);
         insert(newPatient);
     }//end createPatient
-
-    //calls in the next patient
-    public void callInNextPatient(){ 
-        Patient nextPatient = patients.get(0); //gets the min of the heap
-        placePatient();
-        System.out.println("The next patient is: \n" + nextPatient.toString() + "\n"); 
-        
-    }
 
     //method to print out if the room is empty or not
     public void checkIfRoomEmpty(){
