@@ -55,6 +55,9 @@ public class Schedule {
     
     //helper method that chooses a patient from the list
     public Patient choosePatient() {
+        if(patients.isEmpty()){
+            return null;
+        }//end check if patients list is empty
         System.out.println("Enter 'y' for the patient you wish you update");
         for(Patient p: patients) {
             System.out.println(p.toString());
@@ -69,6 +72,10 @@ public class Schedule {
     //updates the triage status of a patient
     public void updatePatientStatus(Scanner input) {
         Patient patient = choosePatient();
+        if(patient == null){
+            System.out.println("No patients are currently on the waiting list.");
+            return;
+        }//end catch if waiting list is full
         System.out.println("What is the patient's new status?");
         int newStatus = input.nextInt();
         patient.setTriage(newStatus);
