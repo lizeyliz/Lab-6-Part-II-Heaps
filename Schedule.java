@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,37 +97,6 @@ public class Schedule {
         Patient newPatient = new Patient(firstName, lastName, age, admitTime, triageNum);
         insert(newPatient);
     }//end createPatient
-    
-    //helper method to obtain patient admit time in localDateTime format
-    public LocalDateTime admitTime(Scanner input) { //WORK ON EXCEPTION CATCHING
-        String admitDate;
-        String admitTime;
-        String admitDateTime;
-        LocalDateTime patientAdmit = null;;
-        boolean check = false;
-         
-        
-        while(!check) {
-            System.out.println("Enter admit time: ");
-            admitTime = input.next();
-        
-            System.out.println("Enter admit date (yyyy-MM-dd): ");
-            admitDate = input.next();
-            admitDateTime = admitDate + "T" + admitTime;
-
-            try {
-                patientAdmit = LocalDateTime.parse(admitDateTime);
-                check = true;
-            } catch (DateTimeParseException e) {
-                check = false;
-                //patientAdmit = null;
-                System.out.println("invalid option");
-
-            }
-        }
-
-        return patientAdmit;
-    }
 
     //calls in the next patient
     public void callInNextPatient(){ 
@@ -231,11 +199,6 @@ public class Schedule {
     private int rightChild(int index) {
         return index*2 + 2; 
     }//end rightChild
-
-    //returns true if node has parent: takes in node's index
-    private Boolean hasParent(int index) {
-        return index < 1;//returns true if index is 0
-    }//end hasParent
 
     //checks if node at given index has a left child
     private Boolean hasLeftChild(int index) {
